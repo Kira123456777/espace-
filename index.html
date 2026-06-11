@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0">
+<script type="module">
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+75,
+innerWidth / innerHeight,
+0.1,
+1000
+);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const platform = new THREE.Mesh(
+new THREE.BoxGeometry(10, 1, 10),
+new THREE.MeshBasicMaterial({ color: 0x888888 })
+);
+scene.add(platform);
+
+const planet = new THREE.Mesh(
+new THREE.SphereGeometry(2),
+new THREE.MeshBasicMaterial({ color: 0x2266ff })
+);
+planet.position.set(5, 3, -10);
+scene.add(planet);
+
+camera.position.z = 15;
+
+function animate() {
+requestAnimationFrame(animate);
+planet.rotation.y += 0.01;
+renderer.render(scene, camera);
+}
+
+animate();
+</script>
+</body>
+</html>
